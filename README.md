@@ -2,6 +2,6 @@
 O projeto principal será um Clone do Twitter
 
 Serão utilizados as seguintes tecnologias:
-- Node, Express, Nodemon, Mongoose e SocketIO (Server/ORM)
-- React (Web)
-- React Native (Mobile)
+- Server/API: Node, Express, Nodemon, Mongoose (ORM) e SocketIO
+- Frontend: React (Interface Web), Axios (Chamadas API REST) e React-Router-Dom (navegação e rotas) 
+- Mobile: React Native
