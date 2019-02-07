@@ -3,18 +3,39 @@ import React, { Component } from 'react';
 import { 
   View, 
   StyleSheet,
-  KeyboardAvoidingView,
-  Text,
-  TextInput,
-  TouchableOpacity
+  KeyboardAvoidingView, //Redemensiona o conteudo da tela (ex: ao abrir o teclado) 
+  Text, //Campos de Textos
+  TextInput, //Campos de EditText
+  TouchableOpacity, //Botoes
+  AsyncStorage //Similar ao LocalStorage do ReactJS
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Login extends Component {
+  
+  state = {
+    username: '',
+  };
+  
+  handleInputChange = (username) => {
+    this.setState({username});
+  };
+
+  handleLogin = async () => {
+    const { username } = this.state;
+
+    if(!username.length) return;
+
+    await AsyncStorage.setItem('@Omnistack:username', username);
+
+    this.props.navegation.navigate("Timeline");
+
+
+  };
+  
   render() {
     return (
-      /*Componente que redimensiona o conteúdo da tela (ex: ao abrir o teclado) */
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View style={styles.content}>
           {/* Icone do Twitter */}
@@ -26,12 +47,14 @@ export default class Login extends Component {
           <TextInput 
             style={styles.input}
             placeholder="Nome de usuário"
-            //value={}
-            returnKeyType="send"
+            value={this.state.username}
+            returnKeyType="send" //escrito no botão "Enter" do teclado
+            onSubmitEditing={this.handleLogin} // açao ao ser chamada ao clicar no botão "send"
+            onChangeText={this.handleInputChange}
           />
 
           {/* Botão de acesso */}
-          <TouchableOpacity onPress={() => {}} style={styles.button}>
+          <TouchableOpacity onPress={this.handleLogin} style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
           </TouchableOpacity>
 
