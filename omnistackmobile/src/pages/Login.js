@@ -18,6 +18,16 @@ export default class Login extends Component {
     username: '',
   };
   
+  async componentDidMount(){
+
+    const username = await AsyncStorage.getItem('@Omnistack:username');
+
+    if(username){
+      this.props.navigation.navigate("App");
+    }
+
+  }
+
   handleInputChange = (username) => {
     this.setState({username});
   };
@@ -29,8 +39,7 @@ export default class Login extends Component {
 
     await AsyncStorage.setItem('@Omnistack:username', username);
 
-    this.props.navegation.navigate("Timeline");
-
+    this.props.navigation.navigate("App");
 
   };
   
